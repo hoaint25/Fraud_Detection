@@ -18,3 +18,8 @@ transactions.
 
 ## About Data 
 The dataset can be downloaded using this [link](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud)
+The dataset includes credit card transactions made by European cardholders over a period of two days in September 2013. Out of a toatal of 284,807 transactions, 492 were fraudulent. This dataset is highly unbalanced, with the positive class(frauds) accounting for 0.172% of the total transactions. 
+- The dataset has been modified with Pricipals Components Analysis (PCA) to maintain confidentially. 
+- Feature Time contains the seconds elapsed between each transaction and the first transaction in the dataset. The feature Amount is the transaction Amount, this feature can be used for example-dependant cost-senstive learning.
+- Apart from 'time' and 'amount', all the other features (V1,V2,V,V4 up to V28) are the principle components abtained using PCA. The feature 'amount' is the transactions amount. 
+- The feature 'class' represent class labeling, and it takes the value 1 in case of fraud and 0 in others.
