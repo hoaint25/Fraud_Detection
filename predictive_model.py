@@ -19,10 +19,29 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.ensemble import AdaBoostClassifier
 from catboost import CatBoostClassifier
 from sklearn import svm
-import lightgbm as lgb
-from lightgbm import LGBMClassifier
+#import lightgbm as lgb
+#from lightgbm import LGBMClassifier
 import xgboost as xgb
 import os
 
 pd.set_option('display.max_columns', 100)
 
+#read the data dataa
+data_df = pd.read_csv("creditcard.csv")
+
+#check the data 
+print('Number of rows: ', data_df.shape[0])
+print('Number of Columns: ', data_df.shape[1])
+
+#glimpse the data
+print(data_df.head())
+
+#more detail about data 
+print(data_df.describe())
+
+#check the missing data 
+total = data_df.isnull().sum().sort_values(ascending=False)
+percent = (data_df.isnull().sum()/data_df.isnull().count()*100).sort_values(ascending=False)
+print(pd.concat([total,percent], axis = 1, keys = ['Total','Percent']).transpose())
+
+#data unbalance
