@@ -42,6 +42,22 @@ print(data_df.describe())
 #check the missing data 
 total = data_df.isnull().sum().sort_values(ascending=False)
 percent = (data_df.isnull().sum()/data_df.isnull().count()*100).sort_values(ascending=False)
-print(pd.concat([total,percent], axis = 1, keys = ['Total','Percent']).transpose())
+pd.concat([total,percent], axis = 1, keys = ['Total','Percent']).transpose()
 
-#data unbalance
+#data unbalanced
+#check the data unbalance with respect with target value (class)
+temp = data_df['Class'].value_counts()
+df = pd.DataFrame({'Class':temp.index, 'Values': temp.values})
+
+trace = go.Bar(x = df['Class'], y = df['Values'],
+        name = 'Credit Card Fraud Class - data unbalance (Not fraud = 0, Fraud = 1',
+        marker = dict(color='red'), text = df['Values'])
+
+data = trace 
+layout = dict(title = 'Credit Card Fraud Detection - data unbalance ( Not Fraud: 0, Fraud: 1',
+                xaxis = dict(title = 'Class', showticklabels = True),
+                yaxis = dict(title = 'Number of Transactions'),
+                hovermode = 'closest', width = 600)
+fig = dict(data = data, layout = layout)
+iplot(fig, filename = 'class')
+
