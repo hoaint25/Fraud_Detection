@@ -5,8 +5,8 @@ import matplotlib
 import matplotlib.pyplot as plt
 import seaborn as sns
 import plotly.graph_objs as go
+import plotly.figure_factory as ff
 from plotly import tools
-from plotly.tools import FigureFactory as FF
 from plotly.offline import download_plotlyjs, init_notebook_mode, plot, iplot
 #init_notebook_mode(connected=True)
 
@@ -26,7 +26,7 @@ import os
 
 pd.set_option('display.max_columns', 100)
 
-#read the data dataa
+#read the data data
 data_df = pd.read_csv("creditcard.csv")
 
 #check the data 
@@ -58,6 +58,18 @@ layout = dict(title = 'Credit Card Fraud Detection - data unbalance ( Not Fraud:
                 xaxis = dict(title = 'Class', showticklabels = True),
                 yaxis = dict(title = 'Number of Transactions'),
                 hovermode = 'closest', width = 600)
-fig = dict(data = data, layout = layout)
-iplot(fig, filename = 'class')
+#fig = dict(data = data, layout = layout)
+#iplot(fig, filename = 'class')
 
+##DATA EXPLORATION
+
+#transactions in time 
+class_0 = data_df.loc[data_df['Class'] == 0]["Time"]
+class_1 = data_df.loc[data_df['Class'] == 1]["Time"]
+
+hist_data = [class_0, class_1]
+group_labels =  ['Not Fraud','Fraud']
+
+fig = ff.create_distplot(hist_data, group_labels, show_hist = False, show_rug = False)
+fig['layout'].update(title = 'Credit Card Transactions Time Density Plot', xaxis = dict(title='Time [s]'))
+iplot(fig, filename = 'dist_only')
