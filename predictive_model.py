@@ -88,5 +88,21 @@ s1 = sns.lineplot(ax=ax1, x = 'Hour', y = 'Sum', data = df[df['Class'] == 0])
 s2 = sns.lineplot(ax=ax2, x = 'Hour', y = 'Sum', data = df[df['Class'] == 1], color = 'red')
 s1.set_title('Total Amount by Hour (Not Fraud) ')
 s2.set_title('Total Amount by Hour (Fraud) ')
-plt.suptitle('Hour Occur Transactions per Class')
+#plt.show()
+
+#plot the Number Transactions with Hour column per Class
+fig, (ax1,ax2) = plt.subplots(ncols=2, figsize=(18,6))
+s1 = sns.lineplot(ax=ax1, x = 'Hour', y = 'Transactions', data = df[df['Class'] == 0])
+s2 = sns.lineplot(ax=ax2, x = 'Hour', y = 'Transactions', data = df[df['Class'] == 1], color = 'red')
+s1.set_title('Total Number of Transactions by Hour (Not Fraud) ')
+s2.set_title('Total Number of Transactions by Hour (Fraud) ')
+#plt.show()
+
+#plot the average Amount of Transactions
+fig, (ax1,ax2) = plt.subplots(ncols=2, figsize=(18,6))
+s1 = sns.lineplot(ax=ax1, x = 'Hour', y = 'Mean', data = df[df['Class'] == 0])
+s2 = sns.lineplot(ax=ax2, x = 'Hour', y = 'Mean', data = df[df['Class'] == 1], color = 'red')
+s1.set_title('Average Amount of Transactions by Hour (Not Fraud) ')
+s2.set_title('Average Amount of Transactions by Hour (Fraud) ')
 plt.show()
+
