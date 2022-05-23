@@ -73,3 +73,11 @@ group_labels =  ['Not Fraud','Fraud']
 fig = ff.create_distplot(hist_data, group_labels, show_hist = False, show_rug = False)
 fig['layout'].update(title = 'Credit Card Transactions Time Density Plot', xaxis = dict(title='Time [s]'))
 iplot(fig, filename = 'dist_only')
+
+#more details to the time distribution of both classes transactions, as well as aggregated values of transaction count and amount, per hour. We assume that the time unit is second
+data_df['Hour'] = data_df['Time'].apply(lambda x: np.floor(x/3600))
+
+tmp = data_df.groupby(['Hour','Class'])['Amount'].aggregate(['min','max','count','sum','mean','median','var']).reset_index()
+df = pd.DataFrame(tmp)
+df.columns = ['Hour','Class','Min','Max','Transactions','Sum','Mean','Median','Var']
+print(df.head(10))
