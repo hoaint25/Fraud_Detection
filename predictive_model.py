@@ -59,7 +59,7 @@ layout = dict(title = 'Credit Card Fraud Detection - data unbalance ( Not Fraud:
                 yaxis = dict(title = 'Number of Transactions'),
                 hovermode = 'closest', width = 600)
 #fig = dict(data = data, layout = layout)
-iplot(fig, filename = 'class')
+#iplot(fig, filename = 'class')
 
 ##DATA EXPLORATION
 
@@ -72,7 +72,7 @@ group_labels =  ['Not Fraud','Fraud']
 
 fig = ff.create_distplot(hist_data, group_labels, show_hist = False, show_rug = False)
 fig['layout'].update(title = 'Credit Card Transactions Time Density Plot', xaxis = dict(title='Time [s]'))
-iplot(fig, filename = 'dist_only')
+#iplot(fig, filename = 'dist_only')
 
 #more details to the time distribution of both classes transactions, as well as aggregated values of transaction count and amount, per hour. We assume that the time unit is second
 data_df['Hour'] = data_df['Time'].apply(lambda x: np.floor(x/3600))
@@ -82,10 +82,11 @@ df = pd.DataFrame(tmp)
 df.columns = ['Hour','Class','Min','Max','Transactions','Sum','Mean','Median','Var']
 print(df.head(10))
 
-#plot the Hour per class (Fraud and Not Fraud)
+#plot the Total Amount by Hour per class (Fraud and Not Fraud)
 fig, (ax1, ax2) = plt.subplots(ncols=2, figsize = (18,6))
-s = sns.lineplot(ax=ax1, x = 'Hour', y = 'Sum', data = df[df['Class'] == 0])
-s = sns.lineplot(ax=ax2, x = 'Hour', y = 'Sum', data = df[df['Class'] == 1], color = 'red')
-
+s1 = sns.lineplot(ax=ax1, x = 'Hour', y = 'Sum', data = df[df['Class'] == 0])
+s2 = sns.lineplot(ax=ax2, x = 'Hour', y = 'Sum', data = df[df['Class'] == 1], color = 'red')
+s1.set_title('Total Amount by Hour (Not Fraud) ')
+s2.set_title('Total Amount by Hour (Fraud) ')
 plt.suptitle('Hour Occur Transactions per Class')
 plt.show()
