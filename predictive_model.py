@@ -59,7 +59,7 @@ layout = dict(title = 'Credit Card Fraud Detection - data unbalance ( Not Fraud:
                 yaxis = dict(title = 'Number of Transactions'),
                 hovermode = 'closest', width = 600)
 #fig = dict(data = data, layout = layout)
-#iplot(fig, filename = 'class')
+iplot(fig, filename = 'class')
 
 ##DATA EXPLORATION
 
@@ -72,7 +72,7 @@ group_labels =  ['Not Fraud','Fraud']
 
 fig = ff.create_distplot(hist_data, group_labels, show_hist = False, show_rug = False)
 fig['layout'].update(title = 'Credit Card Transactions Time Density Plot', xaxis = dict(title='Time [s]'))
-#iplot(fig, filename = 'dist_only')
+iplot(fig, filename = 'dist_only')
 
 #more details to the time distribution of both classes transactions, as well as aggregated values of transaction count and amount, per hour. We assume that the time unit is second
 data_df['Hour'] = data_df['Time'].apply(lambda x: np.floor(x/3600))
@@ -88,7 +88,7 @@ s1 = sns.lineplot(ax=ax1, x = 'Hour', y = 'Sum', data = df[df['Class'] == 0])
 s2 = sns.lineplot(ax=ax2, x = 'Hour', y = 'Sum', data = df[df['Class'] == 1], color = 'red')
 s1.set_title('Total Amount by Hour (Not Fraud) ')
 s2.set_title('Total Amount by Hour (Fraud) ')
-#plt.show()
+plt.show()
 
 #plot the Number Transactions with Hour column per Class
 fig, (ax1,ax2) = plt.subplots(ncols=2, figsize=(18,6))
@@ -96,7 +96,7 @@ s1 = sns.lineplot(ax=ax1, x = 'Hour', y = 'Transactions', data = df[df['Class'] 
 s2 = sns.lineplot(ax=ax2, x = 'Hour', y = 'Transactions', data = df[df['Class'] == 1], color = 'red')
 s1.set_title('Total Number of Transactions by Hour (Not Fraud) ')
 s2.set_title('Total Number of Transactions by Hour (Fraud) ')
-#plt.show()
+plt.show()
 
 #plot the average Amount of Transactions
 fig, (ax1,ax2) = plt.subplots(ncols=2, figsize=(18,6))
@@ -104,7 +104,7 @@ s1 = sns.lineplot(ax=ax1, x = 'Hour', y = 'Mean', data = df[df['Class'] == 0])
 s2 = sns.lineplot(ax=ax2, x = 'Hour', y = 'Mean', data = df[df['Class'] == 1], color = 'red')
 s1.set_title('Average Amount of Transactions by Hour (Not Fraud) ')
 s2.set_title('Average Amount of Transactions by Hour (Fraud) ')
-#plt.show()
+plt.show()
 
 #plot the maximum Amount of Transactions
 fig, (ax1,ax2) = plt.subplots(ncols=2, figsize=(18,6))
@@ -112,4 +112,12 @@ s1 = sns.lineplot(ax=ax1, x = 'Hour', y = 'Max', data = df[df['Class'] == 0])
 s2 = sns.lineplot(ax=ax2, x = 'Hour', y = 'Max', data = df[df['Class'] == 1], color = 'red')
 s1.set_title('Maximum Amount of Transactions by Hour (Not Fraud) ')
 s2.set_title('Maximum Amount of Transactions by Hour (Fraud) ')
-#plt.show()
+plt.show()
+
+#plot the Median Amount of Transactions
+fig, (ax1,ax2) = plt.subplots(ncols=2, figsize=(18,6))
+s1 = sns.lineplot(ax=ax1, x = 'Hour', y = 'Median', data = df[df['Class'] == 0])
+s2 = sns.lineplot(ax=ax2, x = 'Hour', y = 'Median', data = df[df['Class'] == 1], color = 'red')
+s1.set_title('Median Amount of Transactions by Hour (Not Fraud) ')
+s2.set_title('Median Amount of Transactions by Hour (Fraud) ')
+plt.show()
