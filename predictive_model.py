@@ -104,5 +104,12 @@ s1 = sns.lineplot(ax=ax1, x = 'Hour', y = 'Mean', data = df[df['Class'] == 0])
 s2 = sns.lineplot(ax=ax2, x = 'Hour', y = 'Mean', data = df[df['Class'] == 1], color = 'red')
 s1.set_title('Average Amount of Transactions by Hour (Not Fraud) ')
 s2.set_title('Average Amount of Transactions by Hour (Fraud) ')
-plt.show()
+#plt.show()
 
+#plot the maximum Amount of Transactions
+fig, (ax1,ax2) = plt.subplots(ncols=2, figsize=(18,6))
+s1 = sns.lineplot(ax=ax1, x = 'Hour', y = 'Max', data = df[df['Class'] == 0])
+s2 = sns.lineplot(ax=ax2, x = 'Hour', y = 'Max', data = df[df['Class'] == 1], color = 'red')
+s1.set_title('Maximum Amount of Transactions by Hour (Not Fraud) ')
+s2.set_title('Maximum Amount of Transactions by Hour (Fraud) ')
+#plt.show()
