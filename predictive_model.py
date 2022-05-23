@@ -59,7 +59,7 @@ layout = dict(title = 'Credit Card Fraud Detection - data unbalance ( Not Fraud:
                 yaxis = dict(title = 'Number of Transactions'),
                 hovermode = 'closest', width = 600)
 #fig = dict(data = data, layout = layout)
-#iplot(fig, filename = 'class')
+iplot(fig, filename = 'class')
 
 ##DATA EXPLORATION
 
@@ -81,3 +81,11 @@ tmp = data_df.groupby(['Hour','Class'])['Amount'].aggregate(['min','max','count'
 df = pd.DataFrame(tmp)
 df.columns = ['Hour','Class','Min','Max','Transactions','Sum','Mean','Median','Var']
 print(df.head(10))
+
+#plot the Hour per class (Fraud and Not Fraud)
+fig, (ax1, ax2) = plt.subplots(ncols=2, figsize = (18,6))
+s = sns.lineplot(ax=ax1, x = 'Hour', y = 'Sum', data = df[df['Class'] == 0])
+s = sns.lineplot(ax=ax2, x = 'Hour', y = 'Sum', data = df[df['Class'] == 1], color = 'red')
+
+plt.suptitle('Hour Occur Transactions per Class')
+plt.show()
