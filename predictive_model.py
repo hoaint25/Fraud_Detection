@@ -59,7 +59,7 @@ layout = dict(title = 'Credit Card Fraud Detection - data unbalance ( Not Fraud:
                 yaxis = dict(title = 'Number of Transactions'),
                 hovermode = 'closest', width = 600)
 #fig = dict(data = data, layout = layout)
-#iplot(fig, filename = 'class')
+iplot(fig, filename = 'class')
 
 ##DATA EXPLORATION
 
@@ -72,7 +72,7 @@ group_labels =  ['Not Fraud','Fraud']
 
 fig = ff.create_distplot(hist_data, group_labels, show_hist = False, show_rug = False)
 fig['layout'].update(title = 'Credit Card Transactions Time Density Plot', xaxis = dict(title='Time [s]'))
-#iplot(fig, filename = 'dist_only')
+iplot(fig, filename = 'dist_only')
 
 #more details to the time distribution of both classes transactions, as well as aggregated values of transaction count and amount, per hour. We assume that the time unit is second
 data_df['Hour'] = data_df['Time'].apply(lambda x: np.floor(x/3600))
@@ -88,7 +88,7 @@ s1 = sns.lineplot(ax=ax1, x = 'Hour', y = 'Sum', data = df[df['Class'] == 0])
 s2 = sns.lineplot(ax=ax2, x = 'Hour', y = 'Sum', data = df[df['Class'] == 1], color = 'red')
 s1.set_title('Total Amount by Hour (Not Fraud) ')
 s2.set_title('Total Amount by Hour (Fraud) ')
-#plt.show()
+plt.show()
 
 #plot the Number Transactions with Hour column per Class
 fig, (ax1,ax2) = plt.subplots(ncols=2, figsize=(18,6))
@@ -96,7 +96,7 @@ s1 = sns.lineplot(ax=ax1, x = 'Hour', y = 'Transactions', data = df[df['Class'] 
 s2 = sns.lineplot(ax=ax2, x = 'Hour', y = 'Transactions', data = df[df['Class'] == 1], color = 'red')
 s1.set_title('Total Number of Transactions by Hour (Not Fraud) ')
 s2.set_title('Total Number of Transactions by Hour (Fraud) ')
-#plt.show()
+plt.show()
 
 #plot the average Amount of Transactions
 fig, (ax1,ax2) = plt.subplots(ncols=2, figsize=(18,6))
@@ -104,7 +104,7 @@ s1 = sns.lineplot(ax=ax1, x = 'Hour', y = 'Mean', data = df[df['Class'] == 0])
 s2 = sns.lineplot(ax=ax2, x = 'Hour', y = 'Mean', data = df[df['Class'] == 1], color = 'red')
 s1.set_title('Average Amount of Transactions by Hour (Not Fraud) ')
 s2.set_title('Average Amount of Transactions by Hour (Fraud) ')
-#plt.show()
+plt.show()
 
 #plot the maximum Amount of Transactions
 fig, (ax1,ax2) = plt.subplots(ncols=2, figsize=(18,6))
@@ -112,7 +112,7 @@ s1 = sns.lineplot(ax=ax1, x = 'Hour', y = 'Max', data = df[df['Class'] == 0])
 s2 = sns.lineplot(ax=ax2, x = 'Hour', y = 'Max', data = df[df['Class'] == 1], color = 'red')
 s1.set_title('Maximum Amount of Transactions by Hour (Not Fraud) ')
 s2.set_title('Maximum Amount of Transactions by Hour (Fraud) ')
-#plt.show()
+plt.show()
 
 #plot the Median Amount of Transactions
 fig, (ax1,ax2) = plt.subplots(ncols=2, figsize=(18,6))
@@ -120,7 +120,7 @@ s1 = sns.lineplot(ax=ax1, x = 'Hour', y = 'Median', data = df[df['Class'] == 0])
 s2 = sns.lineplot(ax=ax2, x = 'Hour', y = 'Median', data = df[df['Class'] == 1], color = 'red')
 s1.set_title('Median Amount of Transactions by Hour (Not Fraud) ')
 s2.set_title('Median Amount of Transactions by Hour (Fraud) ')
-#plt.show()
+plt.show()
 
 #plot the Minium Amount of Transactions
 fig, (ax1,ax2) = plt.subplots(ncols=2, figsize=(18,6))
@@ -129,3 +129,35 @@ s2 = sns.lineplot(ax=ax2, x = 'Hour', y = 'Min', data = df[df['Class'] == 1], co
 s1.set_title('Min Amount of Transactions by Hour (Not Fraud) ')
 s2.set_title('Min Amount of Transactions by Hour (Fraud) ')
 plt.show()
+
+#transaction amount 
+fig, (ax1,ax2) = plt.subplots(ncols=2, figsize = (12,6))
+s1 = sns.boxplot(ax=ax1, x = "Class", y = "Amount", hue = "Class", data = data_df, palette = "PRGn", showfliers=True)
+s2 = sns.boxplot(ax=ax2, x = "Class", y = "Amount", hue = "Class", data = data_df, palette = 'PRGn', showfliers = False)
+#plt.show()
+
+#describe about Fraud and Not Fraud Class
+tmp = data_df[['Amount','Class']].copy()
+class_0 = tmp[tmp['Class'] == 0]['Amount']
+class_1 = tmp[tmp['Class'] == 1]['Amount']
+print(class_0.describe())
+print(class_1.describe())
+
+#plot the fraudulent transactions (amount) against time. The time is shown is seconds form the start of the time period
+fraud = data_df.loc[data_df['Class'] == 1]
+
+trace = go.Scatter(
+    x = fraud["Time"], y = fraud["Amount"],
+    name = 'Amount',
+    marker = dict(color ='rgb(238,23,11)', line = dict(color = 'red', width = 1), opacity = 0.5),
+    text = fraud['Amount'],
+    mode = 'markers')
+
+data = trace
+layout = dict(title = 'Amount of fraudulent transactions', 
+            xaxis = dict(title = 'Time[s]', showticklabels = True),
+            yaxis = dict(title = 'Amount'),
+            hovermode = 'closest')
+
+fig = dict(data = data, layout = layout)
+iplot(fig, filename = 'fraud-amount')
