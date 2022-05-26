@@ -1,4 +1,6 @@
 ##load the packages
+from cProfile import label
+from tkinter.ttk import LabeledScale
 import pandas as pd
 import numpy as np
 import matplotlib 
@@ -160,18 +162,36 @@ layout = dict(title = 'Amount of fraudulent transactions',
             hovermode = 'closest')
 
 fig = dict(data = data, layout = layout)
-iplot(fig, filename = 'fraud-amount')
+#iplot(fig, filename = 'fraud-amount')
 
 ##Features corelation 
 plt.figure(figsize = (14,4))
 plt.title('Credit Card Transactions features correlation plot (Pearson)')
 corr = data_df.corr()
 sns.heatmap(corr, xticklabels=corr.columns, yticklabels = corr.columns, linewidths = 0.1, cmap = 'Reds')
-plt.show()
+#plt.show()
 
 #plot the direct correlated value (V20 and Amount)
 s = sns.lmplot(x = 'V20', y = 'Amount', data = data_df, hue = 'Class', fit_reg = True, scatter_kws = {'s':2})
 plt.show()
 #plot the direct correlated values (V7 and  Amount)
 s = sns.lmplot(x = 'V7', y = 'Amount', data = data_df, hue = 'Class', fit_reg = True, scatter_kws = {'s':2})
+#plt.show()
+
+##Features density plot
+var = data_df.columns.values
+i = 0 
+t0 = data_df[data_df['Class'] == 0]
+t1 = data_df[data_df['Class'] == 1]
+
+sns.set_style('whitegrid')
+plt.figure()
+fig, ax = plt.subplot(8,4, figsize(16,28))
+
+for feature in var:
+    sns.kdeplot(t0[feature], bw = 0.5, label = 'Class = 0')
+    sns.kdeplot(t1[feature], bw = 0.5, label = 'Class = 0')
+    plt.xlabel(feature, fontsize = 12)
+    loc, labels = xticks
+    plt.tick_params(axis = 'both', which = 'major', labelsize = 12)
 plt.show()
