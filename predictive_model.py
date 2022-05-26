@@ -195,3 +195,22 @@ for feature in var:
     loc, labels = xticks
     plt.tick_params(axis = 'both', which = 'major', labelsize = 12)
 plt.show()
+
+
+TEST_SIZE = 0.2
+VALID_SIZE = 0.2
+random_state = 2018
+rfc_metric = 'gini'
+
+##PREDICTIVE MODEL 
+
+#Define target and predictor values
+target = 'Class'
+predictors = ['Time','V1','V2','V3','V4','V5','V6','V7','V8','V9','V10',\
+                'V11','V12','V13','V14','V15','V16','V17','V18','V19',\
+                'V20','V21','V22','V23','V24','V25','V26','V7','V28',\
+                'Amount']
+
+#Split data in train, test and validation sets
+train_df, test_df = train_test_split(data_df, test_size = TEST_SIZE, random_state = random_state, shuffle = True)
+train_df, valid_df = train_test_split(data_df, test_size = TEST_SIZE, random_state = random_state, shuffle = True)
