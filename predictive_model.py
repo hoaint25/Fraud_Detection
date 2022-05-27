@@ -220,3 +220,12 @@ clf.fit(train_df[predictors], train_df[target].values)
 
 #predict the target values for the valid_df data, using predict function 
 preds = clf.predict(valid_df[predictors])
+
+#features importance 
+tmp = pd.DataFrame({'Feature': predictors,'Feature Importance': clf.feature_importances_,})
+tmp = tmp.sort_values(by = 'Feature Importance', ascending = False)
+plt.figure(figsize = (7,4))
+plt.title('Feature Importance', fontsize = 12)
+s = sns.barplot(x='Feature', y = 'Feature Importance', data = tmp)
+s.set_xticklabels(s.get_xticklabels(), rotation = 45)
+plt.show()
