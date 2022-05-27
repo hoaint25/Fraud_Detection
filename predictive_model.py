@@ -213,5 +213,10 @@ train_df, valid_df = train_test_split(data_df, test_size = 0.2, random_state = 2
 ##RANDOM FORREST CLASSIFIER
 
 #Define model parameters
-
 clf = RandomForestClassifier(n_jobs = 4, random_state = 2018, criterion= 'gini', n_estimators=100, verbose = False)
+
+#train the RandomForestClassifier using train_df and fit function 
+clf.fit(train_df[predictors], train_df[target].values)
+
+#predict the target values for the valid_df data, using predict function 
+preds = clf.predict(valid_df[predictors])
