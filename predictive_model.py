@@ -197,11 +197,6 @@ for feature in var:
 plt.show()
 
 
-TEST_SIZE = 0.2
-VALID_SIZE = 0.2
-random_state = 2018
-rfc_metric = 'gini'
-
 ##PREDICTIVE MODEL 
 
 #Define target and predictor values
@@ -212,5 +207,11 @@ predictors = ['Time','V1','V2','V3','V4','V5','V6','V7','V8','V9','V10',\
                 'Amount']
 
 #Split data in train, test and validation sets
-train_df, test_df = train_test_split(data_df, test_size = TEST_SIZE, random_state = random_state, shuffle = True)
-train_df, valid_df = train_test_split(data_df, test_size = TEST_SIZE, random_state = random_state, shuffle = True)
+train_df, test_df = train_test_split(data_df, test_size = 0.2, random_state = 2018, shuffle = True)
+train_df, valid_df = train_test_split(data_df, test_size = 0.2, random_state = 2018, shuffle = True)
+
+##RANDOM FORREST CLASSIFIER
+
+#Define model parameters
+
+clf = RandomForestClassifier(n_jobs = 4, random_state = 2018, criterion= 'gini', n_estimators=100, verbose = False)
