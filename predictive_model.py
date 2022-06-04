@@ -231,3 +231,4 @@ s.set_xticklabels(s.get_xticklabels(), rotation = 45)
 plt.show()
 
 print('Done')
+print('Hello')
