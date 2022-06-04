@@ -1,1 +1,0 @@
-print ('There is something in the gate')
