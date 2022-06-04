@@ -1,2 +1,0 @@
-print('World')
-print('aaaa')
