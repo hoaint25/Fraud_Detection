@@ -230,5 +230,18 @@ s = sns.barplot(x='Feature', y = 'Feature Importance', data = tmp)
 s.set_xticklabels(s.get_xticklabels(), rotation = 45)
 plt.show()
 
-print('Done')
-print('Hello')
+#confusion matrix
+cm = pd.crosstab(valid_df[target].values, preds, rownames =['Actual'], colnames = ['Perdicted'])
+                #groupby in row         #groupby in cols
+fig, (ax1) = plt.subplot(ncols = 1, figsize = (5,5))
+sns.heatmap(cm,
+            xticklabels= ['Not Fraud', 'Fraud'],
+            yticklabels= ['Not Fraud', 'Fraud'],
+            annot = True, ax = ax1,
+            linewidths=0.2, linecolor = 'Drakblue', cmap = 'Blues')
+plt.title('Confusion Matrix', fontsize = 14)
+plt.show()
+#calculate the roc_auc_score
+roc_auc_score(valid_df[target].values.preds)
+
+
